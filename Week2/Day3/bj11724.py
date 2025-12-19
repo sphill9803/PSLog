@@ -10,7 +10,6 @@ sys.stdin = open("../../input.txt", "r")
 input = sys.stdin.readline
 
 def bfs(start):
-    comps = [start]
     q = deque([start])
     while q:
         curr_v = q.popleft()
@@ -18,8 +17,6 @@ def bfs(start):
             if not visited[next_v]:
                 visited[next_v] = True
                 q.append(next_v)
-                comps.append(next_v)
-    return comps
 
 V, E = map(int, input().split())
 
@@ -31,11 +28,11 @@ for e in range(E):
     graph[v1 - 1].append(v2 - 1)
     graph[v2 - 1].append(v1 - 1)
 
-connected = []
+connected = 0
 
 for v in range(V):
     if not visited[v]:
         visited[v] = True
-        connected.append(bfs(v))
-
-print(len(connected))
+        bfs(v)
+        connected += 1
+print(connected)
