@@ -14,12 +14,16 @@ tiles = [list(input().strip()) for _ in range(N)]
 
 woods = 0
 
+
 for i in range(N):
     for j in range(M):
         if tiles[i][j] == '-':
             woods += 1
             tiles[i][j] = '+'
             for k in range(j+1, M):
+                # 방문 처리로 원본을 훼손할 때는 “내가 덮어쓴 흔적이 다른 탐색에 오해를 주지 않는가?”를 항상 경계.
+                # if tiles[i][k] == '|'
+                # 조건문을 이렇게 작성하면 '-+-' 인 케이스도 탐색하게 됨.
                 if tiles[i][k] != '-':
                     break
                 tiles[i][k] = '+'
