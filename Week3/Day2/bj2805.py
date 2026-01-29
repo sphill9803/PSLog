@@ -13,22 +13,22 @@ N, M = map(int, input().split())
 def find_length(start, end):
     ans = 0
     while start <= end:
-        lan_len = (start + end) // 2
-        lan_cnt = 0
-        for l in lans:
-            lan_cnt += l // lan_len
-        if lan_cnt >= N:
-            ans = lan_len
-            start = lan_len + 1
+        t_len = 0
+        mid_h = (start + end) // 2
+
+        for t in trees:
+            if t >= mid_h:
+                t_len += (t - mid_h)
+
+        if t_len >= M:
+            ans = mid_h
+            start = mid_h + 1
         else:
-            end = lan_len - 1
+            end = mid_h - 1
     return ans
 
-lans = []
+trees = list(map(int, input().split()))
 
-for _ in range(K):
-    lans.append(int(input()))
+max_len = max(trees)
 
-max_len = max(lans)
-
-print(find_length(1, max_len))
+print(find_length(0, max_len))
